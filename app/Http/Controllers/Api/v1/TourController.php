@@ -10,10 +10,53 @@ use Illuminate\Http\Request;
 
 class TourController extends Controller
 {
-   public function index(Travel $travel)
+   public function index(Travel $travel , Request $request)
    {
-        $tours = $travel->tours()->orderBy('starting_date')->paginate();
+        $tours = $travel->tours()
+        ->when($request->priceFrom,function($query) use ($request)
+        {
+            $query->where('price','>=',$request->priceFrom);
+            
+        })
+       ->when($request->priceTo,function($query) use ($request)
+        {
+            $query->where('price','<=',$request->priceTo);   
+        })
+     ->when($request->dateFrom,function($query) use ($request)
+       {
+           $query->where('starting_date','>=',$request->dateFrom);
+       })
+     ->when($request->dateTo,function($query) use ($request)
+       {
+           $query->where('starting_date','<=',$request->dateTo);
+       })
+       ->when($request->sortBy && $request->orderBy,function ($query) use ($request)
+        {
+         $query->orderBy($request->sortBy , $request->orderBy);
+        })
+     ->orderBy('starting_date')->paginate();
 
-        return TourResource::collection($tours) ;
+     return TourResource::collection($tours) ;
+      //   ->when($request->priceFrom,function($query) use ($request)
+      //   {
+      //       $query->where('price','>=',$request->priceFrom * 100);
+      //   })
+      //   ->when($request->priceTo,function($query) use ($request)
+      //   {
+      //       $query->where('price','<=',$request->priceTo * 100);
+      //   })
+      //   ->when($request->dateFrom,function($query) use ($request)
+      //   {
+      //       $query->where('starting_data','>=',$request->dateFrom);
+      //   })
+      //   ->when($request->dateTo,function($query) use ($request)
+      //   {
+      //    $query->where('starting_date','<=',$request->dateTo);
+      //   })
+      //   ->when($request->sortBy && $request->orderBy,function ($query) use ($request)
+      //   {
+      //    $query->orderBy($request->sortBy , $request->orderBy);
+      //   })
+       
    }
 }
