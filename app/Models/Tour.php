@@ -26,4 +26,8 @@ class Tour extends Model
             set:fn($value) => $value * 100
         );
     }
+    public function getRouteKey()
+    {
+        return 'slug';
+    }
 }

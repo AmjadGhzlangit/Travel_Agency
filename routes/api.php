@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\TravelController;
+use App\Http\Controllers\Api\v1\TravelController;
+use App\Http\Controllers\Api\v1\TourController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/travels',[TravelController::class,'index']);
+Route::get('/travels/{travel:slug}/tours',[TourController::class,'index']);
