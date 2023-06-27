@@ -74,7 +74,6 @@ class AdminTravelTest extends TestCase
                 'email' => 'Admin@email.com',
             ]
         );
-
         $user->roles()->attach(Role::where('name', 'admin')->value('id'));
 
         $response = $this->actingAs($user)->postJson(
