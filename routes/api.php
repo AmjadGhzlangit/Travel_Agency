@@ -5,7 +5,6 @@ use App\Http\Controllers\Api\v1\Admin\TravelController as AdminTravelController;
 use App\Http\Controllers\Api\v1\Auth\loginController;
 use App\Http\Controllers\Api\v1\TourController;
 use App\Http\Controllers\Api\v1\TravelController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::get('/travels', [TravelController::class, 'index']);
 Route::get('/travels/{travel:slug}/tours', [TourController::class, 'index']);

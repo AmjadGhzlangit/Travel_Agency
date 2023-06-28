@@ -7,10 +7,20 @@ use App\Http\Requests\Auth\loginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * 
+ * @group Auth endpoint
+ * 
+ *
+ */
 class loginController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * POST Login
+     * 
+     * Login with the existing user
+     * 
+     * @response { "access_token": "5|iYBtO8uicITEI1oOFx0l106A34v4Arg91lXeE73L"}
      */
     public function __invoke(loginRequest $request)
     {

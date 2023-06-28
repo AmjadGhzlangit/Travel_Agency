@@ -1,0 +1,342 @@
+openapi: 3.0.3
+info:
+  title: 'Travel Api'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/v1/admin/travels:
+    post:
+      summary: 'Post Tour'
+      operationId: postTour
+      description: 'Create a new Tour record'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Admin endpoint'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_public:
+                  type: boolean
+                  description: ''
+                  example: true
+                name:
+                  type: string
+                  description: ''
+                  example: et
+                description:
+                  type: string
+                  description: ''
+                  example: 'Distinctio nostrum quia incidunt impedit nemo ratione.'
+                number_of_days:
+                  type: integer
+                  description: ''
+                  example: 16
+              required:
+                - name
+                - description
+                - number_of_days
+  '/api/v1/admin/travels/{travel_id}/tours':
+    post:
+      summary: 'Post Travel'
+      operationId: postTravel
+      description: 'Create a new Travel record'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Admin endpoint'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: non
+                starting_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2023-06-28T18:50:27'
+                ending_date:
+                  type: string
+                  description: 'Must be a valid date. Must be a date after <code>starting_date</code>.'
+                  example: '2066-09-15'
+                price:
+                  type: number
+                  description: ''
+                  example: 83130001.032462
+              required:
+                - name
+                - starting_date
+                - ending_date
+                - price
+    parameters:
+      -
+        in: path
+        name: travel_id
+        description: 'The ID of the travel.'
+        example: 99813dcf-01c3-49e1-b7c6-8758b9ff0cb1
+        required: true
+        schema:
+          type: string
+  '/api/v1/admin/travels/{travel_id}':
+    put:
+      summary: 'PUT Tour'
+      operationId: pUTTour
+      description: 'Update the Tour record'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Admin endpoint'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_public:
+                  type: boolean
+                  description: ''
+                  example: false
+                name:
+                  type: string
+                  description: ''
+                  example: similique
+                description:
+                  type: string
+                  description: ''
+                  example: 'Maiores porro maxime aut enim.'
+                number_of_days:
+                  type: integer
+                  description: ''
+                  example: 20
+              required:
+                - name
+                - description
+                - number_of_days
+    parameters:
+      -
+        in: path
+        name: travel_id
+        description: 'The ID of the travel.'
+        example: 99813dcf-01c3-49e1-b7c6-8758b9ff0cb1
+        required: true
+        schema:
+          type: string
+  '/api/v1/editor/travels/{travel_id}':
+    put:
+      summary: 'PUT Tour'
+      operationId: pUTTour
+      description: 'Update the Tour record'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Admin endpoint'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_public:
+                  type: boolean
+                  description: ''
+                  example: false
+                name:
+                  type: string
+                  description: ''
+                  example: recusandae
+                description:
+                  type: string
+                  description: ''
+                  example: 'Illum officiis commodi sapiente.'
+                number_of_days:
+                  type: integer
+                  description: ''
+                  example: 8
+              required:
+                - name
+                - description
+                - number_of_days
+    parameters:
+      -
+        in: path
+        name: travel_id
+        description: 'The ID of the travel.'
+        example: 99813dcf-01c3-49e1-b7c6-8758b9ff0cb1
+        required: true
+        schema:
+          type: string
+  /api/v1/login:
+    post:
+      summary: 'POST Login'
+      operationId: pOSTLogin
+      description: 'Login with the existing user'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  access_token: 5|iYBtO8uicITEI1oOFx0l106A34v4Arg91lXeE73L
+                properties:
+                  access_token:
+                    type: string
+                    example: 5|iYBtO8uicITEI1oOFx0l106A34v4Arg91lXeE73L
+      tags:
+        - 'Auth endpoint'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: feil.tevin@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: "iO@'a8%\"=]'rb<[X-"
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/travels:
+    get:
+      summary: 'Travel list'
+      operationId: travelList
+      description: 'Returns paginated list of travels'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n\"data\": [\n {\n    \"id\": \"99829c82-4784-4fd9-9899-b531f86e1e2f\",\n    \"name\": \"travel one\",\n   \"slug\": \"travel-one\",\n   \"description\": \"this is information about the Travel one\",\n   \"number_of_days\": 9,\n   \"number_of_nights\": 8\n},]}"
+      tags:
+        - 'Public endpoint'
+      security: []
+  '/api/v1/travels/{travel_slug}/tours':
+    get:
+      summary: 'GET Travel Tours'
+      operationId: gETTravelTours
+      description: "Returns paginated list of tour by travel slug\nOrdering by starting_data"
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n  \"data\": [\n {\"id\": \"99830a0a-016b-4c03-94f1-e99390a37bac\",\"name\": \"amjad\",\"starting_date\": \"2023-06-01\",\"ending_date\": \"2023-06-25\",\"price\": \"200.00\"},\n\n{\"id\": \"99830f31-8496-457c-9ec5-0f78717cad92\",\"name\": \"amjad tour\",\"starting_date\": \"2023-06-20\",\"ending_date\": \"2023-06-25\",\"price\": \"300.00\"}\n],\n  }"
+      tags:
+        - 'Public endpoint'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priceFrom:
+                  type: number
+                  description: ''
+                  example: 8101.515053301
+                priceTo:
+                  type: number
+                  description: ''
+                  example: 130.07
+                dateFrom:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2023-06-28T18:50:27'
+                dateTo:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2023-06-28T18:50:27'
+                sortBy:
+                  type: string
+                  description: 'Must be one of <code>price</code>.'
+                  example: price
+                orderBy:
+                  type: string
+                  description: 'Must be one of <code>asc</code> or <code>desc</code>.'
+                  example: asc
+      security: []
+    parameters:
+      -
+        in: path
+        name: travel_slug
+        description: 'The slug of the travel.'
+        example: 99813dcf-01c3-49e1-b7c6-8758b9ff0cb1
+        required: true
+        schema:
+          type: string
+tags:
+  -
+    name: 'Admin endpoint'
+    description: ''
+  -
+    name: 'Auth endpoint'
+    description: ''
+  -
+    name: 'Public endpoint'
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  -
+    default: []

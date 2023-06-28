@@ -1,0 +1,150 @@
+name: 'Public endpoint'
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/travels
+    metadata:
+      groupName: 'Public endpoint'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Travel list'
+      description: 'Returns paginated list of travels'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+          "data": [
+           {
+              "id": "99829c82-4784-4fd9-9899-b531f86e1e2f",
+              "name": "travel one",
+             "slug": "travel-one",
+             "description": "this is information about the Travel one",
+             "number_of_days": 9,
+             "number_of_nights": 8
+          },]}
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/travels/{travel_slug}/tours'
+    metadata:
+      groupName: 'Public endpoint'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET Travel Tours'
+      description: |-
+        Returns paginated list of tour by travel slug
+        Ordering by starting_data
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      travel_slug:
+        name: travel_slug
+        description: 'The slug of the travel.'
+        required: true
+        example: 99813dcf-01c3-49e1-b7c6-8758b9ff0cb1
+        type: string
+        custom: []
+    cleanUrlParameters:
+      travel_slug: 99813dcf-01c3-49e1-b7c6-8758b9ff0cb1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      priceFrom:
+        name: priceFrom
+        description: ''
+        required: false
+        example: 8101.515053301
+        type: number
+        custom: []
+      priceTo:
+        name: priceTo
+        description: ''
+        required: false
+        example: 130.07
+        type: number
+        custom: []
+      dateFrom:
+        name: dateFrom
+        description: 'Must be a valid date.'
+        required: false
+        example: '2023-06-28T18:50:27'
+        type: string
+        custom: []
+      dateTo:
+        name: dateTo
+        description: 'Must be a valid date.'
+        required: false
+        example: '2023-06-28T18:50:27'
+        type: string
+        custom: []
+      sortBy:
+        name: sortBy
+        description: 'Must be one of <code>price</code>.'
+        required: false
+        example: price
+        type: string
+        custom: []
+      orderBy:
+        name: orderBy
+        description: 'Must be one of <code>asc</code> or <code>desc</code>.'
+        required: false
+        example: asc
+        type: string
+        custom: []
+    cleanBodyParameters:
+      priceFrom: 8101.515053301
+      priceTo: 130.07
+      dateFrom: '2023-06-28T18:50:27'
+      dateTo: '2023-06-28T18:50:27'
+      sortBy: price
+      orderBy: asc
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": [
+           {"id": "99830a0a-016b-4c03-94f1-e99390a37bac","name": "amjad","starting_date": "2023-06-01","ending_date": "2023-06-25","price": "200.00"},
+
+          {"id": "99830f31-8496-457c-9ec5-0f78717cad92","name": "amjad tour","starting_date": "2023-06-20","ending_date": "2023-06-25","price": "300.00"}
+          ],
+            }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

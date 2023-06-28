@@ -1,0 +1,55 @@
+name: 'Auth endpoint'
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/login
+    metadata:
+      groupName: 'Auth endpoint'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'POST Login'
+      description: 'Login with the existing user'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: feil.tevin@example.net
+        type: string
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: "iO@'a8%\"=]'rb<[X-"
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: feil.tevin@example.net
+      password: "iO@'a8%\"=]'rb<[X-"
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{ "access_token": "5|iYBtO8uicITEI1oOFx0l106A34v4Arg91lXeE73L"}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
