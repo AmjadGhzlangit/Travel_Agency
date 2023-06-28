@@ -6,7 +6,6 @@ use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminTravelTest extends TestCase
@@ -45,9 +44,10 @@ class AdminTravelTest extends TestCase
         $response = $this->actingAs($user)->postJson(
             '/api/v1/admin/travels'
         );
-        
+
         $response->assertStatus(403);
     }
+
     public function test_insert_tavel_with_invalid_data_returns_error_validation(): void
     {
         $this->seed(RoleSeeder::class);
@@ -65,6 +65,7 @@ class AdminTravelTest extends TestCase
 
         $response->assertStatus(422);
     }
+
     public function test_insert_tavel_with_valid_data_successful(): void
     {
         $this->seed(RoleSeeder::class);
@@ -89,6 +90,6 @@ class AdminTravelTest extends TestCase
         $response->assertStatus(201);
 
         $response = $this->get('api/v1/travels');
-        $response->assertJsonFragment(['name'=>'travel one']);
+        $response->assertJsonFragment(['name' => 'travel one']);
     }
 }

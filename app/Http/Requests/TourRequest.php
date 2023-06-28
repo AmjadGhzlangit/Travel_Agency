@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 
 class TourRequest extends FormRequest
@@ -24,12 +23,12 @@ class TourRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'priceFrom'=>'numeric',
-            'priceTo'=>'numeric',
-            'dateFrom'=>'date',
-            'dateTo'=>'date',
-            'sortBy'=>Rule::in(['price']),
-            'orderBy'=>Rule::in(['asc','desc']),
+            'priceFrom' => 'numeric',
+            'priceTo' => 'numeric',
+            'dateFrom' => 'date',
+            'dateTo' => 'date',
+            'sortBy' => Rule::in(['price']),
+            'orderBy' => Rule::in(['asc', 'desc']),
         ];
     }
 

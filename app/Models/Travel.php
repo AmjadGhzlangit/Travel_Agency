@@ -13,9 +13,7 @@ class Travel extends Model
 {
     use HasFactory, Sluggable, HasUuids;
 
-
     protected $table = 'travels';
-
 
     protected $fillable = [
         'is_public',
@@ -34,11 +32,10 @@ class Travel extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
-
 
     public function numberOfNights(): Attribute
     {

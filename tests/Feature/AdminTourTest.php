@@ -7,7 +7,6 @@ use App\Models\Travel;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminTourTest extends TestCase
@@ -19,7 +18,7 @@ class AdminTourTest extends TestCase
         $user = User::factory()->create();
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/' . $travel->id . '/tours');
+        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/'.$travel->id.'/tours');
 
         $response->assertStatus(403);
     }
@@ -31,7 +30,7 @@ class AdminTourTest extends TestCase
         $user->roles()->attach(Role::where('name', 'editor')->first()->id);
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/' . $travel->id . '/tours');
+        $response = $this->actingAs($user)->postJson('/api/v1/admin/travels/'.$travel->id.'/tours');
 
         $response->assertStatus(403);
     }
@@ -43,7 +42,7 @@ class AdminTourTest extends TestCase
         $admin->roles()->attach(Role::where('name', 'admin')->first()->id);
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($admin)->postJson('/api/v1/admin/travels/' . $travel->id . '/tours', [
+        $response = $this->actingAs($admin)->postJson('/api/v1/admin/travels/'.$travel->id.'/tours', [
             'name' => 'tour one',
             'starting_date' => now(),
             'ending_date' => now()->addDays(2),
@@ -52,7 +51,7 @@ class AdminTourTest extends TestCase
 
         $response->assertStatus(201);
 
-        $response = $this->get('/api/v1/travels/' . $travel->slug . '/tours');
+        $response = $this->get('/api/v1/travels/'.$travel->slug.'/tours');
         $response->assertJsonFragment(['name' => 'tour one']);
     }
 
@@ -63,7 +62,7 @@ class AdminTourTest extends TestCase
         $admin->roles()->attach(Role::where('name', 'admin')->first()->id);
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($admin)->postJson('/api/v1/admin/travels/' . $travel->id . '/tours', [
+        $response = $this->actingAs($admin)->postJson('/api/v1/admin/travels/'.$travel->id.'/tours', [
             'name' => 'tour one',
             'starting_date' => now()->addDays(2),
             'ending_date' => now(),
@@ -87,7 +86,7 @@ class AdminTourTest extends TestCase
 
         ]);
 
-        $response = $this->actingAs($editor)->putJson('/api/v1/editor/travels/' . $travel->id, [
+        $response = $this->actingAs($editor)->putJson('/api/v1/editor/travels/'.$travel->id, [
             'is_public' => 1,
             'name' => 'travel one updated',
             'description' => 'this is best travel updated',
@@ -100,9 +99,10 @@ class AdminTourTest extends TestCase
         $response = $this->get('/api/v1/travels/');
         $response->assertJsonFragment([
             'name' => 'travel one updated',
-            'description' => 'this is best travel updated'
+            'description' => 'this is best travel updated',
         ]);
     }
+
     public function test_editor_update_travel_felid_with_invalid_data_and_returns_error(): void
     {
         $this->seed(RoleSeeder::class);
@@ -116,7 +116,7 @@ class AdminTourTest extends TestCase
 
         ]);
 
-        $response = $this->actingAs($editor)->putJson('/api/v1/editor/travels/' . $travel->id, [
+        $response = $this->actingAs($editor)->putJson('/api/v1/editor/travels/'.$travel->id, [
             'is_public' => 1,
             'name' => 'travel one',
             'description' => 'this is best travel updated',
@@ -126,8 +126,8 @@ class AdminTourTest extends TestCase
 
         $response->assertStatus(422);
         $response->assertJsonFragment([
-            'message'=> 'The name has already been taken.'
+            'message' => 'The name has already been taken.',
         ]);
-       
+
     }
 }

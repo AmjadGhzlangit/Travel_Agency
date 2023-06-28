@@ -19,13 +19,14 @@ class Tour extends Model
         'price',
     ];
 
-    public function priceInCents() : Attribute
+    public function priceInCents(): Attribute
     {
         return Attribute::make(
-            get:fn($value) => $value / 100 ,
-            set:fn($value) => $value * 100
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100
         );
     }
+
     public function getRouteKey()
     {
         return 'slug';

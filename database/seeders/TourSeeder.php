@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tour;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TourSeeder extends Seeder
@@ -13,7 +11,6 @@ class TourSeeder extends Seeder
      */
     public function run(): void
     {
-        
-        
+
     }
 }
