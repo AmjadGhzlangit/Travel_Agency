@@ -32,5 +32,5 @@ Route::prefix('editor')->middleware(['auth:sanctum', 'role:editor'])->group(func
 });
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
+    // Route::post('logout', [AuthController::class, 'logout']);
 });
