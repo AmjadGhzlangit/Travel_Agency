@@ -11,9 +11,7 @@ class TourListTest extends V1TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    
     public function tour_slug_returns_correct_data()
     {
         $travel = Travel::factory()->create();
@@ -26,9 +24,7 @@ class TourListTest extends V1TestCase
         $response->assertJsonFragment(['id' => $tour->id]);
     }
 
-    /**
-     * @test
-     */
+    
     public function tour_price_shows_correct_formate_to_api_client()
     {
         $travel = Travel::factory()->create();
@@ -43,9 +39,7 @@ class TourListTest extends V1TestCase
         $response->assertJsonFragment(['price' => '123.45']);
     }
 
-    /**
-     * @test
-     */
+    
     public function tour_list_returns_correct_paginated_data()
     {
         $travel = Travel::factory()->create();
@@ -58,9 +52,7 @@ class TourListTest extends V1TestCase
         $response->assertJsonPath('meta.last_page', 2);
     }
 
-    /**
-     * @test
-     */
+    
     public function tours_list_sorts_by_starting_date_correctly(): void
     {
         $travel = Travel::factory()->create();
@@ -84,9 +76,7 @@ class TourListTest extends V1TestCase
         $response->assertJsonPath('data.1.id', $secondTout->id);
     }
 
-    /**
-     * @test
-     */
+    
     public function tours_list_sorts_by_price_correctly(): void
     {
         $travel = Travel::factory()->create();
@@ -121,9 +111,7 @@ class TourListTest extends V1TestCase
 
     }
 
-    /**
-     * @test
-     */
+    
     public function tours_list_filters_by_price_correctly(): void
     {
         $travel = Travel::factory()->create();
@@ -180,9 +168,7 @@ class TourListTest extends V1TestCase
         $response->assertJsonMissing(['id' => $expansiveTour->id]);
     }
 
-    /**
-     * @test
-     */
+    
     public function tours_list_returns_validation_errors(): void
     {
         $travel = Travel::factory()->create();

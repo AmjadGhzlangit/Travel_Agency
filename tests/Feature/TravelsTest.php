@@ -10,9 +10,7 @@ class TravelsTest extends V1TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+   
     public function travels_list_returns_paginated_data_correctly(): void
     {
         Travel::factory()->count(16)->create(['is_public' => true]);
@@ -24,9 +22,7 @@ class TravelsTest extends V1TestCase
         $response->assertJsonPath('meta.last_page', 2);
     }
 
-    /**
-     * @test
-     */
+   
     public function travels_list_shows_only_public_record(): void
     {
         $publicTravel = Travel::factory()->count(1)->create(['is_public' => true]);
