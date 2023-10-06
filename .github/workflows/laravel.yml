@@ -19,7 +19,7 @@ jobs:
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
-      run: composer install -q --ignore-platform-reqs --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+      run: composer install --ignore-platform-reqs --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     - name: update Dependencies
       run: composer update
     - name: Generate key
