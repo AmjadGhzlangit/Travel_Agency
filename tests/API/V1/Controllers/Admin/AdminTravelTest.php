@@ -1,24 +1,27 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\API\V1\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\API\V1\V1TestCase;
 
-class AdminTravelTest extends TestCase
+class AdminTravelTest extends V1TestCase
 {
     use RefreshDatabase;
 
-    public function test_public_user_cannot_access_adding_travels(): void
+    /**
+     * @test
+     */
+    public function public_user_cannot_access_adding_travels(): void
     {
 
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->postJson(
-            '/api/v1/admin/travels',
+            'admin/travels',
             [
                 'is_public' => '1',
                 'name' => 'travel one',
@@ -30,7 +33,10 @@ class AdminTravelTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_non_admin_user_cannot_access_adding_travels(): void
+    /**
+     * @test
+     */
+    public function non_admin_user_cannot_access_adding_travels(): void
     {
         $this->seed(RoleSeeder::class);
         $user = User::factory()->create(
@@ -42,13 +48,16 @@ class AdminTravelTest extends TestCase
         $user->roles()->attach(Role::where('name', 'editor')->value(1));
 
         $response = $this->actingAs($user)->postJson(
-            '/api/v1/admin/travels'
+            'admin/travels'
         );
 
         $response->assertStatus(403);
     }
 
-    public function test_insert_tavel_with_invalid_data_returns_error_validation(): void
+    /**
+     * @test
+     */
+    public function insert_tavel_with_invalid_data_returns_error_validation(): void
     {
         $this->seed(RoleSeeder::class);
         $user = User::factory()->create(
@@ -60,13 +69,16 @@ class AdminTravelTest extends TestCase
         $user->roles()->attach(Role::where('name', 'admin')->value('id'));
 
         $response = $this->actingAs($user)->postJson(
-            '/api/v1/admin/travels'
+            'admin/travels'
         );
 
         $response->assertStatus(422);
     }
 
-    public function test_insert_tavel_with_valid_data_successful(): void
+    /**
+     * @test
+     */
+    public function insert_tavel_with_valid_data_successful(): void
     {
         $this->seed(RoleSeeder::class);
         $user = User::factory()->create(
@@ -78,7 +90,7 @@ class AdminTravelTest extends TestCase
         $user->roles()->attach(Role::where('name', 'admin')->value('id'));
 
         $response = $this->actingAs($user)->postJson(
-            '/api/v1/admin/travels',
+            'admin/travels',
             [
                 'is_public' => '1',
                 'name' => 'travel one',
@@ -87,9 +99,9 @@ class AdminTravelTest extends TestCase
             ]
         );
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
 
-        $response = $this->get('api/v1/travels');
+        $response = $this->get('travels');
         $response->assertJsonFragment(['name' => 'travel one']);
     }
 }

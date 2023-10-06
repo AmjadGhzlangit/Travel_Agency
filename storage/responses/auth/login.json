@@ -1,0 +1,15 @@
+{
+    "data": {
+        "token_type": "bearer",
+        "access_token": "l1DqdbXFlLPkKIpkvA36jG5XwkO4OlqciIgpAlCB",
+        "access_expires_at": "2023-10-06T17:30:49.000000Z",
+        "profile": {
+            "id": "9a4e5177-1ef0-4fd0-aaf6-5a8256ad9dd4",
+            "name": "Josephine Turner",
+            "email": "rolfson.alysa@example.com",
+            "has_verified_email": true
+        }
+    },
+    "message": "success",
+    "status_code": 200
+}

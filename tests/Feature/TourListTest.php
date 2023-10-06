@@ -5,51 +5,63 @@ namespace Tests\Feature;
 use App\Models\Tour;
 use App\Models\Travel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\API\V1\V1TestCase;
 
-class TourListTest extends TestCase
+class TourListTest extends V1TestCase
 {
     use RefreshDatabase;
 
-    public function test_tour_slug_returns_correct_data()
+    /**
+     * @test
+     */
+    public function tour_slug_returns_correct_data()
     {
         $travel = Travel::factory()->create();
         $tour = Tour::factory()->create(['travel_id' => $travel->id]);
 
-        $response = $this->get('/api/v1/travels/'.$travel->slug.'/tours');
+        $response = $this->get('travels/' . $travel->slug . '/tours');
 
         $response->assertStatus(200);
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment(['id' => $tour->id]);
     }
 
-    public function test_tour_price_shows_correct_formate_to_api_client()
+    /**
+     * @test
+     */
+    public function tour_price_shows_correct_formate_to_api_client()
     {
         $travel = Travel::factory()->create();
         Tour::factory()->create([
             'travel_id' => $travel->id,
             'price' => 123.45,
         ]);
-        $response = $this->get('/api/v1/travels/'.$travel->slug.'/tours');
+        $response = $this->get('travels/' . $travel->slug . '/tours');
 
         $response->assertStatus(200);
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment(['price' => '123.45']);
     }
 
-    public function test_tour_list_returns_correct_paginated_data()
+    /**
+     * @test
+     */
+    public function tour_list_returns_correct_paginated_data()
     {
         $travel = Travel::factory()->create();
         Tour::factory(16)->create(['travel_id' => $travel->id]);
 
-        $response = $this->get('/api/v1/travels/'.$travel->slug.'/tours');
+        $response = $this->get('travels/' . $travel->slug . '/tours');
 
         $response->assertStatus(200);
         $response->assertJsonCount(15, 'data');
         $response->assertJsonPath('meta.last_page', 2);
     }
 
-    public function test_tours_list_sorts_by_starting_date_correctly(): void
+    /**
+     * @test
+     */
+    public function tours_list_sorts_by_starting_date_correctly(): void
     {
         $travel = Travel::factory()->create();
         $firstTout = Tour::factory()->create([
@@ -64,7 +76,7 @@ class TourListTest extends TestCase
             'ending_date' => now()->addDays(2),
         ]);
 
-        $response = $this->get('api/v1/travels/'.$travel->slug.'/tours');
+        $response = $this->get('api/v1/travels/' . $travel->slug . '/tours');
 
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
@@ -72,7 +84,10 @@ class TourListTest extends TestCase
         $response->assertJsonPath('data.1.id', $secondTout->id);
     }
 
-    public function test_tours_list_sorts_by_price_correctly(): void
+    /**
+     * @test
+     */
+    public function tours_list_sorts_by_price_correctly(): void
     {
         $travel = Travel::factory()->create();
         $expinsiveTour = Tour::factory()->create([
@@ -96,7 +111,7 @@ class TourListTest extends TestCase
 
         ]);
 
-        $response = $this->get('api/v1/travels/'.$travel->slug.'/tours?sortBy=price&orderBy=asc');
+        $response = $this->get('api/v1/travels/' . $travel->slug . '/tours?sortBy=price&orderBy=asc');
 
         $response->assertStatus(200);
         $response->assertJsonCount(3, 'data');
@@ -106,7 +121,10 @@ class TourListTest extends TestCase
 
     }
 
-    public function test_tours_list_filters_by_price_correctly(): void
+    /**
+     * @test
+     */
+    public function tours_list_filters_by_price_correctly(): void
     {
         $travel = Travel::factory()->create();
         $expansiveTour = Tour::factory()->create([
@@ -120,64 +138,67 @@ class TourListTest extends TestCase
             'starting_date' => now()->addDays(2),
             'ending_date' => now()->addDays(1),
         ]);
-        $endpoint = '/api/v1/travels/'.$travel->slug.'/tours';
+        $endpoint = 'travels/' . $travel->slug . '/tours';
 
-        $response = $this->get($endpoint.'?priceFrom=150');
+        $response = $this->get($endpoint . '?priceFrom=150');
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
         $response->assertJsonFragment(['id' => $chipTour->id]);
         $response->assertJsonFragment(['id' => $expansiveTour->id]);
 
-        $response = $this->get($endpoint.'?priceFrom=200');
+        $response = $this->get($endpoint . '?priceFrom=200');
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
         $response->assertJsonFragment(['id' => $chipTour->id]);
         $response->assertJsonFragment(['id' => $expansiveTour->id]);
 
-        $response = $this->get($endpoint.'?priceFrom=250');
+        $response = $this->get($endpoint . '?priceFrom=250');
         $response->assertStatus(200);
         $response->assertJsonCount(1, 'data');
         $response->assertJsonMissing(['id' => $chipTour->id]);
         $response->assertJsonFragment(['id' => $expansiveTour->id]);
 
-        $response = $this->get($endpoint.'?priceFrom=400');
+        $response = $this->get($endpoint . '?priceFrom=400');
         $response->assertJsonCount(0, 'data');
 
-        $response = $this->get($endpoint.'?priceTo=300');
+        $response = $this->get($endpoint . '?priceTo=300');
         $response->assertJsonCount(2, 'data');
         $response->assertJsonFragment(['id' => $chipTour->id]);
         $response->assertJsonFragment(['id' => $expansiveTour->id]);
 
-        $response = $this->get($endpoint.'?priceTo=200');
+        $response = $this->get($endpoint . '?priceTo=200');
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment(['id' => $chipTour->id]);
         $response->assertJsonMissing(['id' => $expansiveTour->id]);
 
-        $response = $this->get($endpoint.'?priceTo=150');
+        $response = $this->get($endpoint . '?priceTo=150');
         $response->assertJsonCount(0, 'data');
 
-        $response = $this->get($endpoint.'?priceFrom=100&priceTo=200');
+        $response = $this->get($endpoint . '?priceFrom=100&priceTo=200');
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment(['id' => $chipTour->id]);
         $response->assertJsonMissing(['id' => $expansiveTour->id]);
     }
 
-    public function test_tours_list_returns_validation_errors(): void
+    /**
+     * @test
+     */
+    public function tours_list_returns_validation_errors(): void
     {
         $travel = Travel::factory()->create();
 
-        $endpoint = '/api/v1/travels/'.$travel->slug.'/tours';
+        $endpoint = 'travels/' . $travel->slug . '/tours';
 
-        $response = $this->getJson($endpoint.'?priceFrom=asc');
+        $response = $this->getJson($endpoint . '?priceFrom=asc');
         $response->assertStatus(422);
 
-        $response = $this->getJson($endpoint.'?dateFrom=asc');
+        $response = $this->getJson($endpoint . '?dateFrom=asc');
         $response->assertStatus(422);
 
-        $response = $this->getJson($endpoint.'?sortBy=asc');
+        $response = $this->getJson($endpoint . '?sortBy=asc');
         $response->assertStatus(422);
 
-        $response = $this->getJson($endpoint.'?orderBy=random');
+        $response = $this->getJson($endpoint . '?orderBy=random');
         $response->assertStatus(422);
     }
 }
