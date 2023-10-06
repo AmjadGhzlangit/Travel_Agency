@@ -6,6 +6,25 @@ on:
   pull_request:
     branches: [ "master" ]
 
+.remove_temp_files: &remove_temp_files |
+  rm -rf .scribe
+  rm -rf docker
+  rm -rf storage/mock
+  rm -rf storage/responses
+  rm -rf tests
+  rm .editorconfig
+  rm .env.example
+  rm .gitattributes
+  rm .gitignore
+  rm .gitlab-ci.yml
+  rm .phpstorm.meta.php
+  rm _ide_helper.php
+  rm _ide_helper_models.php
+  rm phpunit.xml
+  rm README.md
+  rm docker-compose.yml
+  rm vite.config.js
+  
 jobs:
   laravel-tests:
 
