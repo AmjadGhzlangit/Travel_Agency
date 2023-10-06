@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "master" ]
 
-.remove_temp_files: &remove_temp_files |
+
   rm -rf .scribe
   rm -rf docker
   rm -rf storage/mock
