@@ -31,6 +31,8 @@ class TourController extends Controller
     public function store(Travel $travel, StoreToursRequest $request)
     {
 
+
+        
         $tour_data = $request->validated();
         $tour_data['travel_id'] = $travel->id;
         $tour = $this->tourRepository->store($tour_data);
