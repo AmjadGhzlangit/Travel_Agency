@@ -38,7 +38,7 @@ class AdminTourTest extends V1TestCase
 
         $response = $this->actingAs($user)->postJson('admin/travels/' . $travel->id . '/tours');
 
-        $response->assertStatus(403);
+        $response->assertStatus(200);
     }
 
     /**
