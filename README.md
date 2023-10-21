@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/travis/gothinkster/laravel-realworld-example-app/master.svg)](https://travis-ci.org/gothinkster/laravel-realworld-example-app) [![Gitter](https://img.shields.io/gitter/room/realworld-dev/laravel.svg)](https://gitter.im/realworld-dev/laravel) [![GitHub stars](https://img.shields.io/github/stars/gothinkster/laravel-realworld-example-app.svg)](https://github.com/gothinkster/laravel-realworld-example-app/stargazers) [![GitHub license](https://img.shields.io/github/license/gothinkster/laravel-realworld-example-app.svg)](https://raw.githubusercontent.com/gothinkster/laravel-realworld-example-app/master/LICENSE)
 
-> ### Example Laravel codebase containing real world examples (CRUD, auth, advanced patterns and more) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
+> ### Example Laravel codebase containing real world examples (CRUD, auth, advanced patterns and more) that adheres to the [Travel_Agency](https://github.com/AmjadGhzlangit/Travel_Agency.git) spec and API.
 
 This repo is functionality complete — PRs and issues welcome!
 
@@ -140,7 +140,7 @@ Run the laravel development server
 
 The api can now be accessed at
 
-    http://localhost:8000/api
+    http://localhost:8000/api/v1
 
 Request headers
 
@@ -148,25 +148,6 @@ Request headers
 |----------	|------------------	|------------------	|
 | Yes      	| Content-Type     	| application/json 	|
 | Yes      	| X-Requested-With 	| XMLHttpRequest   	|
-| Optional 	| Authorization    	| Token {JWT}      	|
+| Optional 	| Authorization    	| Bearer Token      |
 
 Refer the [api specification](#api-specification) for more info.
-
-----------
- 
-# Authentication
- 
-This applications uses JSON Web Token (JWT) to handle authentication. The token is passed with each request using the `Authorization` header with `Token` scheme. The JWT authentication middleware handles the validation and authentication of the token. Please check the following sources to learn more about JWT.
- 
-- https://jwt.io/introduction/
-- https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
-
-----------
-
-# Cross-Origin Resource Sharing (CORS)
- 
-This applications has CORS enabled by default on all API endpoints. The default configuration allows requests from `http://localhost:3000` and `http://localhost:4200` to help speed up your frontend testing. The CORS allowed origins can be changed by setting them in the config file. Please check the following sources to learn more about CORS.
- 
-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
-- https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
-- https://www.w3.org/TR/cors
