@@ -18,11 +18,11 @@ Alternative installation is possible without local dependencies relying on [Dock
 
 Clone the repository
 
-    git clone git@github.com:gothinkster/laravel-realworld-example-app.git
+    git clone https://github.com/AmjadGhzlangit/Travel_Agency.git
 
 Switch to the repo folder
 
-    cd laravel-realworld-example-app
+    cd Travel_Agency
 
 Install all the dependencies using composer
 
@@ -36,9 +36,6 @@ Generate a new application key
 
     php artisan key:generate
 
-Generate a new JWT authentication secret key
-
-    php artisan jwt:generate
 
 Run the database migrations (**Set the database connection in .env before migrating**)
 
@@ -52,8 +49,8 @@ You can now access the server at http://localhost:8000
 
 **TL;DR command list**
 
-    git clone git@github.com:gothinkster/laravel-realworld-example-app.git
-    cd laravel-realworld-example-app
+    git clone  https://github.com/AmjadGhzlangit/Travel_Agency.git
+    cd Travel_Agency
     composer install
     cp .env.example .env
     php artisan key:generate
@@ -68,31 +65,26 @@ You can now access the server at http://localhost:8000
 
 **Populate the database with seed data with relationships which includes users, articles, comments, tags, favorites and follows. This can help you to quickly start testing the api or couple a frontend and start using it with ready content.**
 
-Open the DummyDataSeeder and set the property values as per your requirement
-
-    database/seeds/DummyDataSeeder.php
-
 Run the database seeder and you're done
 
     php artisan db:seed
 
-***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
+***Note*** : You can create the first admin by running the following command
 
-    php artisan migrate:refresh
+    php artisan user:create
     
 ## Docker
 
 To install with [Docker](https://www.docker.com), run following commands:
 
 ```
-git clone git@github.com:gothinkster/laravel-realworld-example-app.git
-cd laravel-realworld-example-app
+git clone https://github.com/AmjadGhzlangit/Travel_Agency.git
+cd Travel_Agency
 cp .env.example.docker .env
 docker run -v $(pwd):/app composer install
 cd ./docker
 docker-compose up -d
 docker-compose exec php php artisan key:generate
-docker-compose exec php php artisan jwt:generate
 docker-compose exec php php artisan migrate
 docker-compose exec php php artisan db:seed
 docker-compose exec php php artisan serve --host=0.0.0.0
@@ -111,11 +103,6 @@ More information regarding the project can be found here https://github.com/goth
 ----------
 
 # Code overview
-
-## Dependencies
-
-- [jwt-auth](https://github.com/tymondesigns/jwt-auth) - For authentication using JSON Web Tokens
-- [laravel-cors](https://github.com/barryvdh/laravel-cors) - For handling Cross-Origin Resource Sharing (CORS)
 
 ## Folders
 
