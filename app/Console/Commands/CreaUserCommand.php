@@ -37,7 +37,7 @@ class CreaUserCommand extends Command
         $roleName = $this->choice('Role of the new user ?', ['admin', 'editor']);
 
         $role = Role::where('name', $roleName)->first();
-        if (! $role) {
+        if (!$role) {
             $this->error('Role not found');
 
             return -1;

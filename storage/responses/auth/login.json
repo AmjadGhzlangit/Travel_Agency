@@ -1,12 +1,12 @@
 {
     "data": {
         "token_type": "bearer",
-        "access_token": "VgMunx0ZaO1Ios6vcpelbxCpN7E2cUNDgsaarWF0",
-        "access_expires_at": "2023-10-06T21:28:53.000000Z",
+        "access_token": "tMquEjBktTbJhCu2QGSdmTfCiq0dNDNtwnTGQBHW",
+        "access_expires_at": null,
         "profile": {
-            "id": "9a4ea69b-9e30-444c-9d4f-5f0e639cbfa7",
-            "name": "Mr. Madison Runolfsdottir",
-            "email": "larkin.issac@example.org",
+            "id": "9a6be54b-f658-4ce2-ba6f-eedf65b69850",
+            "name": "Harrison Sawayn",
+            "email": "fwill@example.com",
             "has_verified_email": true
         }
     },

@@ -15,7 +15,7 @@ trait ApiResponse
             $response = array_merge(['meta' => $meta], $response);
         }
 
-        if (! is_null($data)) {
+        if (!is_null($data)) {
             $response = array_merge(['data' => $data], $response);
         }
 

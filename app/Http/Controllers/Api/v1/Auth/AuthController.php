@@ -35,11 +35,9 @@ class AuthController extends Controller
         return $this->showOne($user, LoginResource::class);
     }
 
-    public function logout(LoginRequest $request)
+    public function logout()
     {
-        $userData = $request->validated();
-        $user = $this->authRepository->login($userData);
-
-        return $this->showOne($user, LoginResource::class);
+        $this->authRepository->logout();
+        return $this->responseMessage(__('Successfully logged out'));
     }
 }

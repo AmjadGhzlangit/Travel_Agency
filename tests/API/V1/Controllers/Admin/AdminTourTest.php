@@ -21,7 +21,7 @@ class AdminTourTest extends V1TestCase
         $user = User::factory()->create();
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('admin/travels/'.$travel->id.'/tours');
+        $response = $this->actingAs($user)->postJson('admin/travels/' . $travel->id . '/tours');
 
         $response->assertStatus(403);
     }
@@ -36,7 +36,7 @@ class AdminTourTest extends V1TestCase
         $user->roles()->attach(Role::where('name', 'editor')->first()->id);
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('admin/travels/'.$travel->id.'/tours');
+        $response = $this->actingAs($user)->postJson('admin/travels/' . $travel->id . '/tours');
 
         $response->assertStatus(403);
     }
@@ -51,7 +51,7 @@ class AdminTourTest extends V1TestCase
         $admin->roles()->attach(Role::where('name', 'admin')->first()->id);
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($admin)->postJson('admin/travels/'.$travel->id.'/tours', [
+        $response = $this->actingAs($admin)->postJson('admin/travels/' . $travel->id . '/tours', [
             'name' => 'tour one',
             'starting_date' => now(),
             'ending_date' => now()->addDays(2),
@@ -61,7 +61,7 @@ class AdminTourTest extends V1TestCase
 
         $response->assertStatus(200);
 
-        $response = $this->get('travels/'.$travel->slug.'/tours');
+        $response = $this->get('travels/' . $travel->slug . '/tours');
         $response->assertJsonFragment(['name' => 'tour one']);
     }
 
@@ -75,7 +75,7 @@ class AdminTourTest extends V1TestCase
         $admin->roles()->attach(Role::where('name', 'admin')->first()->id);
         $travel = Travel::factory()->create();
 
-        $response = $this->actingAs($admin)->postJson('admin/travels/'.$travel->id.'/tours', [
+        $response = $this->actingAs($admin)->postJson('admin/travels/' . $travel->id . '/tours', [
             'name' => 'tour one',
             'starting_date' => now()->addDays(2),
             'ending_date' => now(),
@@ -102,7 +102,7 @@ class AdminTourTest extends V1TestCase
 
         ]);
 
-        $response = $this->actingAs($editor)->putJson('editor/travels/'.$travel->id, [
+        $response = $this->actingAs($editor)->putJson('editor/travels/' . $travel->id, [
             'is_public' => 1,
             'name' => 'travel one updated',
             'description' => 'this is best travel updated',
@@ -135,7 +135,7 @@ class AdminTourTest extends V1TestCase
 
         ]);
 
-        $response = $this->actingAs($editor)->putJson('editor/travels/'.$travel->id, [
+        $response = $this->actingAs($editor)->putJson('editor/travels/' . $travel->id, [
             'is_public' => 1,
             'name' => 'travel one',
             'description' => 'this is best travel updated',

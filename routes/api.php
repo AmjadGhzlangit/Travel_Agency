@@ -32,5 +32,5 @@ Route::prefix('editor')->middleware(['role:editor'])->group(function () {
 });
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
-    // Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('logout', [AuthController::class, 'logout']);
 });

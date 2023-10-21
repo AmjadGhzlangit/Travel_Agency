@@ -17,7 +17,7 @@ trait HasApiTokens
                 'name' => $name,
                 'token' => hash('sha256', $plainTextToken = Str::random(40)),
                 'abilities' => $abilities,
-                'expires_at' => $expireMinutes ? now()->addMinutes($expireMinutes) : null,
+                'expired_at' => $expireMinutes ? now()->addMinutes($expireMinutes) : null,
             ]);
 
         return new NewAccessToken($token, $plainTextToken);

@@ -21,8 +21,7 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/larastan": "*",
         "phpunit/phpunit": "^10.1",
-        "spatie/laravel-ignition": "^2.0",
-        "tightenco/duster": "*"
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {

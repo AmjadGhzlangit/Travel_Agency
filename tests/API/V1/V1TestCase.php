@@ -25,6 +25,6 @@ abstract class V1TestCase extends TestCase
 
     protected function prepareUrlForRequest($uri): string
     {
-        return 'api/v1/'.$uri;
+        return 'api/v1/' . $uri;
     }
 }
